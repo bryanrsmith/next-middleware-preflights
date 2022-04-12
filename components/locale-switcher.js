@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 export default function LocaleSwitcher() {
@@ -14,9 +13,14 @@ export default function LocaleSwitcher() {
 					const { pathname, query, asPath } = router;
 					return (
 						<li key={locale}>
-							<Link href={{ pathname, query }} as={asPath} locale={locale}>
-								<a>{locale}</a>
-							</Link>
+							<button
+								onClick={() => {
+									document.cookie = `NEXT_LOCALE=${locale}`;
+									router.push({ pathname, query }, asPath, { locale });
+								}}
+							>
+								{locale}
+							</button>
 						</li>
 					);
 				})}
